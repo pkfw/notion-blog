@@ -5,8 +5,8 @@
       <v-col cols="12" md="6" lg="4" v-for="post of list" :key="post.id">
         <v-hover v-slot="{ hover }">
           <v-card :class="{ 'card-hover': hover }">
-            <v-card-title>{{ post.title }}</v-card-title>
-            <v-card-text>{{ post.category }}</v-card-text>
+            <v-card-title>{{ post.Title }}</v-card-title>
+            <v-card-text>{{ post.Category }}</v-card-text>
             <v-card-actions>
               <v-btn color="primary">액션 1</v-btn>
               <v-btn color="secondary">액션 2</v-btn>
