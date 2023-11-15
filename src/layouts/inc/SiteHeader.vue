@@ -1,6 +1,7 @@
 <template>
   <header>
-    <img src="@/assets/logo.png" alt="site logo">
+    <img :src="require('@/assets/logo.png')" alt="site logo">
+    <h1>{{ "soboti notion blog".toUpperCase() }}</h1>
     <SiteSearch></SiteSearch>
     <nav>
       <a v-for="item of menu" :key="item">
@@ -29,6 +30,11 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+img {
+  width: 10%;
+  height: 10%;
+  margin-top: 2%;
 }
 
 nav {
