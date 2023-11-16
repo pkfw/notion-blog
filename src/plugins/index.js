@@ -1,7 +1,7 @@
+import webfont from "@/plugins/webfontloader";
 import vuetify from "@/plugins/vuetify";
 import router from "@/router";
-import webfont from '@/plugins/webfontloader'
-import store from "@/store";
+import store from "@/plugins/pinia";
 
 export default {
   install: (app) => {

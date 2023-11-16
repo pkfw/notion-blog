@@ -11,11 +11,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import notion from "@/plugins/notion";
+import { useNotionStore } from "@/store/notion";
 
 const list = ref([]);
+const notionStore = useNotionStore();
 onMounted(async () => {
-  list.value = await notion.getList(process.env.VUE_APP_NOTION_POST_ID);
+  await notionStore.getList();
+  list.value = notionStore.list;
 });
 </script>
 
