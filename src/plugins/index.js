@@ -1,10 +1,12 @@
 import vuetify from "./vuetify";
 import router from "../router";
-import { loadFonts } from './webfontloader'
+import webfont from './webfontloader'
 
-export function registerPlugins(app) {
-    loadFonts();
+export default {
+  install: (app) => {
+    webfont.load();
 
     app.use(vuetify);
     app.use(router);
+  }
 }
