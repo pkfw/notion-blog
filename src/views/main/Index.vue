@@ -1,39 +1,35 @@
 <template>
-  <v-container>
-    <!-- 그리드 레이아웃 -->
-    <v-row>
-      <v-col cols="12" md="6" lg="4" v-for="post of list" :key="post.id">
-        <v-hover v-slot="{ hover }">
-          <v-card :class="{ 'card-hover': hover }">
-            <v-card-title>{{ post.Title }}</v-card-title>
-            <v-card-text>{{ post.Category }}</v-card-text>
-            <v-card-actions>
-              <v-btn color="primary">액션 1</v-btn>
-              <v-btn color="secondary">액션 2</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-    </v-row>
-  </v-container>
+  <component :is="comp[name]" :class="name.toLocaleLowerCase()"></component>
+  <v-btn @click="name = 'NotionList'">list</v-btn>
+  <v-btn @click="name = 'NotionPost'">post</v-btn>
+  <v-btn @click="name = 'NotionCard'">card</v-btn>
 </template>
 
 <script setup>
-import { getPageTable } from "vue-notion";
-import { ref } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 
-const list = ref([]);
+const name = ref("NotionList");
 
-getPageTable(process.env.VUE_APP_NOTION_POST_ID).then(
-  (value) => {
-    list.value = value;
-  }
+const NotionList = defineAsyncComponent(() =>
+  import("@/components/notion/NotionList.vue")
 );
+const NotionCard = defineAsyncComponent(() =>
+  import("@/components/notion/NotionListCard.vue")
+);
+const NotionPost = defineAsyncComponent(() =>
+  import("@/components/notion/NotionPost.vue")
+);
+
+const comp = { NotionList, NotionPost, NotionCard };
 </script>
 
 <style scoped>
-.card-hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
+main {
+  width: 80%;
+  margin: 10px auto;
+}
+
+.notionlist {
+  margin: 10px 10%;
 }
 </style>
