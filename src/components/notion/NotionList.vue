@@ -1,8 +1,14 @@
 <template>
-  <ul>
-    <li v-for="post of list" :key="post.id">
+  <div class="spinner-container" v-if="!list.length">
+    <v-progress-circular
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+  </div>
+  <ul v-else>
+    <li v-for="post in list" :key="post.id">
       <span>{{ post.Title }}</span>
-      <span :class="post.Category.toLowerCase()">
+      <span :style="color.getCategoryColor(post.Category)">
         {{ post.Category }}
       </span>
     </li>
@@ -12,9 +18,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useNotionStore } from "@/store/notion";
+import color from "@/script/color";
 
 const list = ref([]);
 const notionStore = useNotionStore();
+
 onMounted(async () => {
   await notionStore.getList();
   list.value = notionStore.list;
@@ -22,6 +30,15 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.spinner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -42,15 +59,5 @@ li span:nth-child(2) {
   color: white;
   border-radius: 5px;
   padding: 2px 5px;
-}
-
-li span:nth-child(2).html {
-  background-color: coral;
-}
-li span:nth-child(2).css {
-  background-color: cornflowerblue;
-}
-li span:nth-child(2).javascript {
-  background-color: gold;
 }
 </style>
