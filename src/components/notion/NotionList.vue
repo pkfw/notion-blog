@@ -10,16 +10,13 @@
 </template>
 
 <script setup>
-import { getPageTable } from "vue-notion";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import notion from "@/plugins/notion";
 
 const list = ref([]);
-
-getPageTable(process.env.VUE_APP_NOTION_POST_ID).then(
-  (value) => {
-    list.value = value;
-  }
-);
+onMounted(async () => {
+  list.value = await notion.getList(process.env.VUE_APP_NOTION_POST_ID);
+});
 </script>
 
 <style scoped>
