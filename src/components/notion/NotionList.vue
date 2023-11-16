@@ -18,7 +18,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useNotionStore } from "@/store/notion";
-import color from "@/script/color";
+import color from "@/script/color";
 
 const list = ref([]);
 const notionStore = useNotionStore();
