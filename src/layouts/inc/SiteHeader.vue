@@ -1,40 +1,47 @@
 <template>
-  <header>
+  <!-- <header>
     <img :src="require('@/assets/logo.png')" alt="site logo">
     <h1>{{ "soboti notion blog".toUpperCase() }}</h1>
-  </header>
+  </header> -->
+  <v-system-bar>
+    <!-- <span class="ms-2">3:31PM</span> -->
+    <img :src="require('@/assets/logo.png')" alt="site logo">
+    <div class="ms-2 text-button">{{ currentUse }}</div>
+    <v-spacer></v-spacer>
+    <div class="time-viewer">{{ formattedDate }}</div>
+  </v-system-bar>
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
+
+const currentDate = ref(new Date());
+
+const formattedDate = computed(() => {
+  const date = currentDate.value;
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let weekday = weekdays[date.getDay()];
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+
+  let ampm = hours >= 12 ? '오후' : '오전';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${month}월 ${day}일 (${weekday}) ${ampm} ${hours}:${minutes}`;
+});
+
+const currentUse = ref("soboti");
 </script>
 
 <style scoped>
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 img {
-  width: 10%;
-  height: 10%;
-  margin-top: 2%;
-}
-
-nav {
-  margin-top: 20px;
-  background-color: #333;
-  color: white;
-  width: 80%;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-a {
-  margin-right: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-a:hover {
-  color: antiquewhite;
+  width: 20px;
+  height: 20px;
 }
 </style>
