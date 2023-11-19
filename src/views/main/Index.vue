@@ -1,12 +1,14 @@
 <template>
+  <site-side-menu></site-side-menu>
   <component :is="comp[name]" :class="name.toLocaleLowerCase()"></component>
-  <v-btn @click="name = 'NotionList'">list</v-btn>
+  <!-- <v-btn @click="name = 'NotionList'">list</v-btn>
   <v-btn @click="name = 'NotionPost'">post</v-btn>
-  <v-btn @click="name = 'NotionCard'">card</v-btn>
+  <v-btn @click="name = 'NotionCard'">card</v-btn> -->
 </template>
 
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
+import SiteSideMenu from "@/layouts/inc/SiteSideMenu.vue";
 
 const name = ref("NotionList");
 
@@ -27,6 +29,7 @@ const comp = { NotionList, NotionPost, NotionCard };
 main {
   width: 80%;
   margin: 10px auto;
+  height: 100%;
 }
 
 .notionlist {
