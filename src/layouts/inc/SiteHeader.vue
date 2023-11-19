@@ -2,27 +2,10 @@
   <header>
     <img :src="require('@/assets/logo.png')" alt="site logo">
     <h1>{{ "soboti notion blog".toUpperCase() }}</h1>
-    <SiteSearch></SiteSearch>
-    <nav>
-      <a v-for="item of menu" :key="item">
-        {{ item }}
-      </a>
-    </nav>
   </header>
 </template>
 
 <script setup>
-import SiteSearch from "@/layouts/inc/SiteSearch.vue";
-// import { inject } from "vue";
-
-const menu = [
-  "HTML",
-  "CSS",
-  "JAVASCRIPT",
-];
-
-// const { updateName } = inject("name");
-// const { updateCategory } = inject("category");
 </script>
 
 <style scoped>
