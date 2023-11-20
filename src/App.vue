@@ -5,6 +5,7 @@
 <script setup>
 import { defineAsyncComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import "@/assets/css/scrollBar.css";
 
 const loadLayoutComponent = (layoutName) => {
   return layoutName 
