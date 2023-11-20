@@ -1,16 +1,14 @@
 <template>
   <site-side-menu></site-side-menu>
-  <component :is="comp[name]" :class="name.toLocaleLowerCase()"></component>
-  <!-- <v-btn @click="name = 'NotionList'">list</v-btn>
-  <v-btn @click="name = 'NotionPost'">post</v-btn>
-  <v-btn @click="name = 'NotionCard'">card</v-btn> -->
+  <component :is="comp[componentStore.getName]" :class="componentStore.getName.toLocaleLowerCase()"></component>
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from "vue";
 import SiteSideMenu from "@/layouts/inc/SiteSideMenu.vue";
+import { useComponentStore } from "@/store/component";
 
-const name = ref("NotionList");
+const componentStore = useComponentStore();
 
 const NotionList = defineAsyncComponent(() =>
   import("@/components/notion/NotionList.vue")

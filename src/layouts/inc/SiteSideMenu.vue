@@ -2,25 +2,32 @@
   <div class="dock-style rounded-lg d-flex flex-column">
     <v-tooltip v-for="menu in menus" :key="menu.name" :text="menu.name">
       <template v-slot:activator="{ props }">
-        <img v-bind="props" :src="menu.img" :alt="menu.name">
+        <img v-bind="props" :src="menu.img" :alt="menu.name" @click="onclickSideMenu(menu.component)">
       </template>
     </v-tooltip>
   </div>
 </template>
 
 <script setup>
+import { useComponentStore } from '@/store/component';
 const menus = [
   {
     name: "blog",
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/200px-Notion-logo.svg.png",
-    router: "",
+    component: "NotionList",
   },
   {
     name: "profile",
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Siri_new_logo.png/240px-Siri_new_logo.png",
-    router: "",
+    component: "NotionPost",
   },
-]
+];
+
+const componentStore = useComponentStore();
+
+const onclickSideMenu = (component) => {
+  componentStore.setName(component);
+}
 </script>
 
 <style scoped>

@@ -1,11 +1,11 @@
 <template>
   <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-    <div class="spinner-container" v-if="!list.length && busy">
+    <div class="spinner-container" v-if="!list.length">
       <v-progress-circular indeterminate color="light-blue-darken-1"></v-progress-circular>
     </div>
     <v-row v-else>
       <v-col cols="12" sm="6" md="4" v-for="post in list" :key="post.id">
-        <v-card class="mx-auto" hover>
+        <v-card class="mx-auto" hover @click="onclickPost(post.id)">
           <v-card-item>
             <v-card-title>{{ post.Title }}</v-card-title>
             <v-card-text class="px-0 pt-2">
@@ -26,25 +26,26 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useNotionStore } from "@/store/notion";
+import { useComponentStore } from "@/store/component";
 import color from "@/script/color";
 
 const list = ref([]);
-const busy = ref(false);
 const notionStore = useNotionStore();
+const componentStore = useComponentStore();
 
-onMounted(async () => {
-  await loadMore();
-});
-
-async function loadMore() {
-  if (busy.value) return;
-  busy.value = true;
-
-  await notionStore.getList();
-  list.value.push(...notionStore.list);
-
-  busy.value = false;
+const loadData = async () => {
+  if (!notionStore.getList.length) {
+    await notionStore.setList();
+  }
+  list.value = notionStore.getList;
 }
+
+const onclickPost = async (id) => {
+  await notionStore.setPost(id);
+  componentStore.setName("NotionPost");
+}
+
+onMounted(loadData);
 </script>
 
 <style scoped>
