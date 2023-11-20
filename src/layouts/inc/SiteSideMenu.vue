@@ -1,12 +1,10 @@
 <template>
-  <div class="side-menu-container blur-background">
-    <div v-for="menu in menus" :key="menu.name">
-      <v-tooltip :text="menu.name">
-        <template v-slot:activator="{ props }">
-          <img v-bind="props" :src="menu.img" :alt="menu.name">
-        </template>
-      </v-tooltip>
-    </div>
+  <div class="dock-style rounded-lg d-flex flex-column">
+    <v-tooltip v-for="menu in menus" :key="menu.name" :text="menu.name">
+      <template v-slot:activator="{ props }">
+        <img v-bind="props" :src="menu.img" :alt="menu.name">
+      </template>
+    </v-tooltip>
   </div>
 </template>
 
@@ -22,39 +20,26 @@ const menus = [
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Siri_new_logo.png/240px-Siri_new_logo.png",
     router: "",
   },
-  {
-    name: "tips",
-    img: "https://i.namu.wiki/i/ilU0kPT0un20wdI43eIxgxjBA2wDIsxe29XNf2fkRmt45KvZ1m-vM1rCFZ-QotIFDbjU5Qp5huuYyw2SEgsu0Q1gFnPCQvT0G9w72NxEHSdOxEGlXaVkibXAi0RWDoVqBXLgnUdvs1IXxMn-YDfiyQ.svg",
-    router: "",
-  },
-  {
-    name: "setting",
-    img: "https://i.namu.wiki/i/pknk2zAU7l58Zt80CMbagbecwFNrW40hV1kenxfd8drfrFBeSzS4dvCNZ-iI7StrPYM6Vazd2lR7x3mS8mR9ug.svg",
-    router: "",
-  },
 ]
 </script>
 
 <style scoped>
-.side-menu-container {
-  display: block;
-  position: absolute;
+.dock-style {
+  position: fixed;
   top: 50%;
   left: 1%;
   transform: translateY(-50%);
-
-  padding: 10px;
-  border: solid whitesmoke 1px;
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.3); /* 반투명 배경 */
+  backdrop-filter: blur(15px); /* 강한 블러 효과 */
+  padding: 5px 10px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  text-align: center;
 }
 
-.blur-background {
-  background-color: rgba(155, 155, 155, 0.5); /* 백색 배경에 50% 투명도 */
-  backdrop-filter: blur(6px); /* 배경 흐림 효과 */
-}
-
-.side-menu-container img {
-  width: 50px;
-  height: 50px;
+.dock-style img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin: 5px 0;
 }
 </style>
