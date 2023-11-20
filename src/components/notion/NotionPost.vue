@@ -3,8 +3,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useNotionStore } from "@/store/notion";
+import { NotionRenderer } from "vue-notion";
 
 const post = ref([]);
 const notionStore = useNotionStore();
