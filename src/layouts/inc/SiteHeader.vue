@@ -1,10 +1,5 @@
 <template>
-  <!-- <header>
-    <img :src="require('@/assets/logo.png')" alt="site logo">
-    <h1>{{ "soboti notion blog".toUpperCase() }}</h1>
-  </header> -->
-  <v-system-bar>
-    <!-- <span class="ms-2">3:31PM</span> -->
+  <v-system-bar color="grey-darken-4">
     <img :src="require('@/assets/logo.png')" alt="site logo">
     <div class="ms-2 text-button">{{ currentUse }}</div>
     <v-spacer></v-spacer>
@@ -41,7 +36,7 @@ const currentUse = ref("soboti");
 
 <style scoped>
 img {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 </style>
