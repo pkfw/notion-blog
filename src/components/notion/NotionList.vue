@@ -1,18 +1,26 @@
 <template>
-  <div class="spinner-container" v-if="!list.length">
-    <v-progress-circular
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
+  <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+    <div class="spinner-container" v-if="!list.length && busy">
+      <v-progress-circular indeterminate color="light-blue-darken-1"></v-progress-circular>
+    </div>
+    <v-row v-else>
+      <v-col cols="12" sm="6" md="4" v-for="post in list" :key="post.id">
+        <v-card class="mx-auto" hover>
+          <v-card-item>
+            <v-card-title>{{ post.Title }}</v-card-title>
+            <v-card-text class="px-0 pt-2">
+              테스트 문자열입니다.
+            </v-card-text>
+            <div class="px-0">
+              <v-chip-group v-model="selection">
+                <v-chip :style="color.getCategoryColor(post.Category)">{{ post.Category }}</v-chip>
+              </v-chip-group>
+            </div>
+          </v-card-item>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
-  <ul v-else>
-    <li v-for="post in list" :key="post.id">
-      <span>{{ post.Title }}</span>
-      <span :style="color.getCategoryColor(post.Category)">
-        {{ post.Category }}
-      </span>
-    </li>
-  </ul>
 </template>
 
 <script setup>
@@ -21,12 +29,22 @@ import { useNotionStore } from "@/store/notion";
 import color from "@/script/color";
 
 const list = ref([]);
+const busy = ref(false);
 const notionStore = useNotionStore();
 
 onMounted(async () => {
-  await notionStore.getList();
-  list.value = notionStore.list;
+  await loadMore();
 });
+
+async function loadMore() {
+  if (busy.value) return;
+  busy.value = true;
+
+  await notionStore.getList();
+  list.value.push(...notionStore.list);
+
+  busy.value = false;
+}
 </script>
 
 <style scoped>
